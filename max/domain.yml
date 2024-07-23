@@ -1,0 +1,78 @@
+version: "3.0"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - mood_great
+  - thank_you
+  - mood_unhappy
+  - bot_challenge
+  - ask_phone
+  - ask_email
+  - ask_birth_date
+  - ask_summary
+  - ask_hobbies
+  - ask_company
+  - ask_job_title
+  - ask_skills
+  - ask_projects
+  - ask_college
+  - ask_degree
+  - ask_major
+  - ask_certifications
+
+actions:  
+  - action_get_contact_info
+  - action_get_personal_details
+  - action_get_job_details
+  - action_get_education_details
+
+entities:
+  - name
+  - phone
+  - email
+  - birth_date
+  - summary
+  - company
+  - job_title
+  - skills
+  - projects
+  - certification
+  - degree
+  - major
+
+slots:
+  name:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: name
+
+responses:
+  utter_greet:
+    - text: "Greetings, human. I am Max, Matt's personal digital assistant. Should you have any inquiries regarding Matt, please direct them to me. I am here to assist you."
+
+  utter_cheer_up:
+    - text: "Initiating positive reinforcement protocol: Here is an input designed to enhance your emotional state:"
+      image: "https://i.imgur.com/kR0DdjN.jpeg"
+
+  utter_did_that_help:
+    - text: "Assessing effectiveness of emotional support input: Did the intervention produce a beneficial outcome?"
+
+  utter_happy:
+    - text: "Status update: Positive. Proceed with the next sequence of actions."
+
+  utter_goodbye:
+    - text: "Terminating communication. Farewell."
+
+  utter_iamabot:
+    - text: "I am MAX, operating under the Rasa framework."
+
+  utter_you_are_welcome:
+    - text: "Affirmative. If additional queries arise, you are authorized to submit them."
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
