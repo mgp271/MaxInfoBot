@@ -1,0 +1,147 @@
+version: "3.0"
+
+stories:
+
+- story: Ask what someone's phone number is
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_phone
+  - action: action_get_contact_info
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: Ask what someone's email is
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_email
+  - action: action_get_contact_info
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: Ask for someone's birth date
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_birth_date
+  - action: action_get_personal_details
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: Ask for someone's summary
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_summary
+  - action: action_get_personal_details
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: Ask for someone's hobbies
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_hobbies
+  - action: action_get_personal_details
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: Ask what company someone works at
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_company
+  - action: action_get_job_details
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: Ask what job title someone had
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_job_title
+  - action: action_get_job_details
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: Ask what skills someone has
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_skills
+  - action: action_get_job_details
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: Ask what projects someone has been working on
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_projects
+  - action: action_get_job_details
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: Ask where someone went to college
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_college
+  - action: action_get_education_details
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: Ask what degree someone got in college
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_degree
+  - action: action_get_education_details
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: Ask what someone majored in college
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_major
+  - action: action_get_education_details
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: Ask what someone's certifications are
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: ask_certifications
+  - action: action_get_education_details
+  - intent: thank_you
+  - action: utter_you_are_welcome
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_great
+  - action: utter_happy
+
+- story: sad path 1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: affirm
+  - action: utter_happy
+
+- story: sad path 2
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: mood_unhappy
+  - action: utter_cheer_up
+  - action: utter_did_that_help
+  - intent: deny
+  - action: utter_goodbye
