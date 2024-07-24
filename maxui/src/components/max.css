@@ -120,28 +120,6 @@ h2 {
     
 }
 
-/* width */
-/* ::-webkit-scrollbar {
-    width: 5px;
-  } */
-  
-  /* Track */
-  /* ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey; 
-    border-radius: 10px;
-  } */
-   
-  /* Handle */
-  /* ::-webkit-scrollbar-thumb {
-    background: #1d1b22; 
-    border-radius: 10px;
-  } */
-  
-  /* Handle on hover */
-  /* ::-webkit-scrollbar-thumb:hover {
-    background: #1d1b22; 
-  } */
-
 .userIcon{
     font-size: 53px;
     border-radius: 50px;
@@ -164,5 +142,58 @@ h2 {
     flex-direction: column;
     @media screen and (min-width: 320px) { 
         flex-direction: row;
+    }
+}
+
+.bot {
+    transition: 300ms ease all;
+    position: relative;
+}
+
+.bot-eyes {
+    transition: 300ms ease all;
+    position: absolute;
+    z-index: 2;
+    opacity: 0;
+}
+
+.initial-blink {
+    animation: blinker 0.2s linear infinite;
+    opacity: 1;
+}
+
+.blinking {
+    animation: blinker 0.2s linear infinite;
+    opacity: 1;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.bot-desc-scrolled {
+    display: none;
+}
+
+.cardHeader {
+    transition: 300ms ease all;
+    height: '10.5rem';
+}
+
+.scrolled {
+    .bot, .bot-eyes {
+        width: 58px;
+        height: 58px;
+    }
+    .bot-desc {
+        display: none;
+    }
+    .bot-desc-scrolled {
+        display: block;
+    }
+    .cardHeader {
+        height: 5.5rem;
     }
 }

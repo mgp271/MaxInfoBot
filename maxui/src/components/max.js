@@ -1,19 +1,67 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 import { IoMdSend } from 'react-icons/io';
 import botIcon from '../assets/head-sm.svg';
+import botEyes from '../assets/head-eyes.svg';
 import './max.css';
 
 function Basic(){
     const [chat,setChat] = useState([]);
     const [inputMessage,setInputMessage] = useState('');
     const [botTyping,setbotTyping] = useState(false);
+    const blinkingRef = useRef(null);
+
+    const [headerClass, setHeaderClass] = useState('cardHeader'); // State for managing header class
+    const messageAreaRef = useRef(null); // Ref for the message area
+
+    useEffect(() => {
+        // Initial blinking on page load
+        if (blinkingRef.current) {
+            blinkingRef.current.classList.add('initial-blink');
+        }
+
+        const timer = setTimeout(() => {
+            if (blinkingRef.current) {
+                blinkingRef.current.classList.remove('initial-blink');
+            }
+        }, 1000);
+
+        return () => clearTimeout(timer); // Cleanup the timer on component unmount
+    }, []);
+
+    useEffect(() => {
+        // Blinking when the bot starts typing
+        if (botTyping) {
+            blinkingRef.current.classList.add('blinking');
+        } else {
+            blinkingRef.current.classList.remove('blinking');
+            // blinkingRef.current.style.display = "none";
+        }
+    }, [botTyping]);
 
     useEffect(()=>{
             console.log("called");
             const objDiv = document.getElementById('messageArea');
             objDiv.scrollTop = objDiv.scrollHeight;
         },[chat])
+
+    useEffect(() => {
+        // Add scroll event listener to detect scrolling in message area
+        const handleScroll = () => {
+            if (messageAreaRef.current.scrollTop > 0) {
+                setHeaderClass('cardHeader scrolled');
+            } else {
+                setHeaderClass('cardHeader');
+            }
+        };
+
+        const messageArea = messageAreaRef.current;
+        messageArea.addEventListener('scroll', handleScroll);
+
+        return () => {
+            messageArea.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     const handleSubmit=(evt)=>{
         evt.preventDefault();
@@ -74,9 +122,9 @@ function Basic(){
 
     }
     const styleHeader = {
-        height: '10.5rem',
         borderRadius: '30px 30px 0px 0px',
         backgroundColor: '#1d1b22',
+        color: '#fff',
     }
     const styleFooter = {
         borderRadius: '0px 0px 30px 30px',
@@ -101,18 +149,19 @@ function Basic(){
         <div className="row justify-content-center">
             
                 <div className="card" style={stylecard}>
-                    <div className="cardHeader text-white" style={styleHeader}>
-                        <img style={{marginRight: '15px'}} src={botIcon} height="128px" width="128px" alt="botIcon" />
+                    <div className={headerClass} style={styleHeader}>
+                        <img className="bot-eyes initial-blink blinking" ref={blinkingRef} style={{marginRight: '15px'}} src={botEyes} height="128px" width="128px" alt="botEyes" />
+                        <img className="bot" style={{marginRight: '15px'}} src={botIcon} height="128px" width="128px" alt="bot" />
                         <div className="bot-desc">
                             <h1 style={{marginBottom:'0px'}}>Greetings Human</h1>
                             <h2>I am <span>MAX</span></h2>
-                        </div>
-                        {botTyping ? <h6>Bot Typing....</h6> : null}
-                        
-                        
-                        
+                            {/* {botTyping ? <h6>Bot Typing....</h6> : null} */}
+                        </div> 
+                        <div className="bot-desc-scrolled">
+                            <h2>I am <span>MAX</span></h2>
+                        </div>     
                     </div>
-                    <div className="cardBody" id="messageArea" style={styleBody}>
+                    <div className="cardBody" id="messageArea" ref={messageAreaRef} style={styleBody}>
                         <div className="row msgarea">
                             {chat.map((user,key) => (
                                 <div key={key}>
