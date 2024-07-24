@@ -1,10 +1,9 @@
 import './App.css';
-import Basic from "./components/Basic";
+import Basic from "./components/max";
 
 function App() {
   return (
     <div className="App">
-      <h1>MattBOT</h1>
       <Basic />
     </div>
   );
