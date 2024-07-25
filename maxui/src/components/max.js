@@ -206,7 +206,7 @@ function Basic(){
                                 <div className="w-100" style={{marginRight:'15px'}}>
                                     <input onChange={e => setInputMessage(e.target.value)} value={inputMessage} type="text" className="msginp"></input>
                                 </div>
-                                <div className="col-2 cola">
+                                <div className="cola">
                                     <button type="submit" className="circleBtn" ><IoMdSend className="sendBtn" /></button>
                                 </div>
                             </form>
