@@ -14,6 +14,15 @@ function Basic(){
     const [headerClass, setHeaderClass] = useState('cardHeader'); // State for managing header class
     const messageAreaRef = useRef(null); // Ref for the message area
 
+    useEffect(()=>{
+   
+        console.log("called");
+        const objDiv = document.getElementById('messageArea');
+        objDiv.scrollTop = objDiv.scrollHeight;
+        
+    
+    },[chat])
+
     useEffect(() => {
         // Initial blinking on page load
         if (blinkingRef.current) {
@@ -81,40 +90,45 @@ function Basic(){
         
     }
 
-    const rasaAPI = async function handleClick(name,msg) {
-
-          await fetch('http://localhost:5005/webhooks/rest/webhook', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-              'charset':'UTF-8',
-            },
-            credentials: "same-origin",
-            body: JSON.stringify({ "sender": name, "message": msg }),
-        })
-        .then(response => response.json())
-        .then((response) => {
-            if(response){
-                const temp = response[0];
-                const recipient_id = temp["recipient_id"];
-                const recipient_msg = temp["text"];        
-
-
-                const response_temp = {sender: "bot",recipient_id : recipient_id,msg: recipient_msg};
-                setbotTyping(false);
-                
-                setChat(chat => [...chat, response_temp]);
-               // scrollBottom();
-
+    const rasaAPI = async function handleClick(name, msg) {
+        try {
+            const response = await fetch('http://localhost:5005/webhooks/rest/webhook', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'charset': 'UTF-8',
+                },
+                credentials: "same-origin",
+                body: JSON.stringify({ "sender": name, "message": msg }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
             }
-        }) 
-    }
+    
+            const data = await response.json();
+    
+            if (data && data.length > 0) {
+                const temp = data[0];
+                const recipient_id = temp["recipient_id"];
+                const recipient_msg = temp["text"];
+                const response_temp = { sender: "bot", recipient_id: recipient_id, msg: recipient_msg };
+                setbotTyping(false);
+                setChat(chat => [...chat, response_temp]);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            const errorMsg = { sender: "bot", msg: "Sorry, human, I'm down or having technical difficulties." };
+            setbotTyping(false);
+            setChat(chat => [...chat, errorMsg]);
+        }
+    }    
 
     console.log(chat);
 
     const stylecard = {
-        maxWidth : '35rem',
+        maxWidth : '100%',
         paddingLeft: '0px',
         paddingRight: '0px',
         borderRadius: '30px',
@@ -122,16 +136,15 @@ function Basic(){
 
     }
     const styleHeader = {
-        borderRadius: '30px 30px 0px 0px',
+        borderRadius: '0px 0px 0px 0px',
         backgroundColor: '#1d1b22',
         color: '#fff',
     }
     const styleFooter = {
-        borderRadius: '0px 0px 30px 30px',
+        borderRadius: '0px 0px 0px 0px',
         backgroundColor: '#1d1b22',
         padding: '15px',
-        
-        
+        width: '100%',
     }
     const styleBody = {
         padding : '15px',
@@ -145,7 +158,7 @@ function Basic(){
       <div>
         {/* <button onClick={()=>rasaAPI("Matt","hi")}>Try this</button> */}
         
-        <div className="container">
+        <div className="container-fluid">
         <div className="row justify-content-center">
             
                 <div className="card" style={stylecard}>
@@ -153,7 +166,7 @@ function Basic(){
                         <img className="bot-eyes initial-blink blinking" ref={blinkingRef} style={{marginRight: '15px'}} src={botEyes} height="128px" width="128px" alt="botEyes" />
                         <img className="bot" style={{marginRight: '15px'}} src={botIcon} height="128px" width="128px" alt="bot" />
                         <div className="bot-desc">
-                            <h1 style={{marginBottom:'0px'}}>Greetings Human</h1>
+                            <h1 className="greeting" style={{marginBottom:'0px'}}>Greetings Human</h1>
                             <h2>I am <span>MAX</span></h2>
                             {/* {botTyping ? <h6>Bot Typing....</h6> : null} */}
                         </div> 
@@ -190,7 +203,7 @@ function Basic(){
                     <div className="cardFooter text-white" style={styleFooter}>
                         <div className="row">
                             <form className="form" style={{display: 'flex', justifyContent: 'space-evenly'}} onSubmit={handleSubmit}>
-                                <div className="col-xs-12 col-sm-10" style={{paddingRight:'0px'}}>
+                                <div className="w-100" style={{marginRight:'15px'}}>
                                     <input onChange={e => setInputMessage(e.target.value)} value={inputMessage} type="text" className="msginp"></input>
                                 </div>
                                 <div className="col-2 cola">
