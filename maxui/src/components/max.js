@@ -10,6 +10,8 @@ function Basic(){
     const [inputMessage,setInputMessage] = useState('');
     const [botTyping,setbotTyping] = useState(false);
     const blinkingRef = useRef(null);
+    const greetingTypeRef = useRef(null);
+    const nameGreetingRef = useRef(null);
 
     const [headerClass, setHeaderClass] = useState('cardHeader'); // State for managing header class
     const messageAreaRef = useRef(null); // Ref for the message area
@@ -28,12 +30,24 @@ function Basic(){
         if (blinkingRef.current) {
             blinkingRef.current.classList.add('initial-blink');
         }
+        if (greetingTypeRef.current) {
+            greetingTypeRef.current.classList.add('greeting-type');
+        }
+        if (nameGreetingRef.current) {
+            nameGreetingRef.current.classList.add('name-greeting');
+        }
 
         const timer = setTimeout(() => {
             if (blinkingRef.current) {
                 blinkingRef.current.classList.remove('initial-blink');
             }
-        }, 1000);
+            if (greetingTypeRef.current) {
+                greetingTypeRef.current.classList.remove('greeting-type');
+            }
+            if (nameGreetingRef.current) {
+                nameGreetingRef.current.classList.remove('name-greeting');
+            }
+        }, 1500);
 
         return () => clearTimeout(timer); // Cleanup the timer on component unmount
     }, []);
@@ -119,7 +133,9 @@ function Basic(){
             }
         } catch (error) {
             console.error('Error:', error);
-            const errorMsg = { sender: "bot", msg: "Sorry, human, I'm down or having technical difficulties." };
+            const errorMsg = { sender: "bot", msg: `Sorry, human, I'm down or having technical difficulties. However, here is Matt's contact information:
+            Phone Number: 480.216.8765
+            Email: mgp271@gmail.com` };
             setbotTyping(false);
             setChat(chat => [...chat, errorMsg]);
         }
@@ -166,8 +182,8 @@ function Basic(){
                         <img className="bot-eyes initial-blink blinking" ref={blinkingRef} style={{marginRight: '15px'}} src={botEyes} height="128px" width="128px" alt="botEyes" />
                         <img className="bot" style={{marginRight: '15px'}} src={botIcon} height="128px" width="128px" alt="bot" />
                         <div className="bot-desc">
-                            <h1 className="greeting" style={{marginBottom:'0px'}}>Greetings Human</h1>
-                            <h2>I am <span>MAX</span></h2>
+                            <h1 className="greeting" ref={greetingTypeRef} style={{marginBottom:'0px'}}>Greetings Human</h1>
+                            <h2 ref={nameGreetingRef}>I am <span>MAX</span></h2>
                             {/* {botTyping ? <h6>Bot Typing....</h6> : null} */}
                         </div> 
                         <div className="bot-desc-scrolled">
