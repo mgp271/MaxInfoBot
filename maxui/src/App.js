@@ -1,4 +1,3 @@
-import './App.css';
 import Basic from "./components/max";
 
 function App() {

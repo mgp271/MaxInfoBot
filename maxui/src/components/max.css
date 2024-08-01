@@ -19,14 +19,14 @@ h2 {
 
 .greeting {
     display: none;
-    @media screen and (min-width: 320px) { 
+    @media screen and (min-width: 480px) { 
         display: block;
     }
 }
 
 .greeting-type {
     opacity: 0;
-    @media screen and (min-width: 320px) { 
+    @media screen and (min-width: 480px) { 
         opacity: 1;
         white-space: nowrap;
         overflow: hidden;
@@ -36,17 +36,10 @@ h2 {
 }
 
 .name-greeting {
-    width: auto;
-    white-space: wrap;
-    overflow: auto;
-    animation: none;
-
-    @media screen and (min-width: 320px) { 
-        width: 0ch;
-        white-space: nowrap;
-        overflow: hidden;
-        animation: type 1s steps(20) 1s forwards;
-    }
+    width: 0ch;
+    white-space: nowrap;
+    overflow: hidden;
+    animation: type 1s steps(20) 1s forwards;
 }
 
 @keyframes type {
@@ -56,7 +49,7 @@ h2 {
 
 .botIcon {
     display: none;
-    @media screen and (min-width: 320px) { 
+    @media screen and (min-width: 480px) { 
         display: block;
     }
 }
@@ -76,7 +69,7 @@ h2 {
     background-color: #c9282a;
     width: 100%;
 
-    @media screen and (min-width: 320px) { 
+    @media screen and (min-width: 480px) { 
         width: 55px;
         border-radius: 50%;
     }
@@ -102,7 +95,7 @@ h2 {
     width: 100%;
     padding-left: 0px;
 
-    @media screen and (min-width: 320px) { 
+    @media screen and (min-width: 480px) { 
         height: 65px;
         width: 65px;
     }
@@ -164,7 +157,7 @@ h2 {
     margin-right: 5px;
     padding: 5px;
     display: none;
-    @media screen and (min-width: 320px) { 
+    @media screen and (min-width: 480px) { 
         display: block;
     }
 
@@ -177,7 +170,7 @@ h2 {
 
 .form {
     flex-direction: column;
-    @media screen and (min-width: 320px) { 
+    @media screen and (min-width: 480px) { 
         flex-direction: row;
     }
 }
@@ -185,6 +178,13 @@ h2 {
 .bot {
     transition: 300ms ease all;
     position: relative;
+    width: 58px;
+    height: 58px;
+
+    @media screen and (min-width: 480px) { 
+        width: 128px;
+        height: 128px;
+    }
 }
 
 .bot-eyes {
@@ -192,6 +192,13 @@ h2 {
     position: absolute;
     z-index: 2;
     opacity: 0;
+    width: 58px;
+    height: 58px;
+
+    @media screen and (min-width: 480px) { 
+        width: 128px;
+        height: 128px;
+    }
 }
 
 .initial-blink {
