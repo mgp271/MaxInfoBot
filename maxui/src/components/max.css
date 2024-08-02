@@ -178,13 +178,6 @@ h2 {
 .bot {
     transition: 300ms ease all;
     position: relative;
-    width: 58px;
-    height: 58px;
-
-    @media screen and (min-width: 480px) { 
-        width: 128px;
-        height: 128px;
-    }
 }
 
 .bot-eyes {
@@ -192,13 +185,6 @@ h2 {
     position: absolute;
     z-index: 2;
     opacity: 0;
-    width: 58px;
-    height: 58px;
-
-    @media screen and (min-width: 480px) { 
-        width: 128px;
-        height: 128px;
-    }
 }
 
 .initial-blink {
@@ -224,6 +210,16 @@ h2 {
 .cardHeader {
     transition: 300ms ease all;
     height: '10.5rem';
+}
+
+.bot, .bot-eyes {
+    width: 58px;
+    height: 58px;
+    
+    @media screen and (min-width: 480px) { 
+        width: 128px;
+        height: 128px;
+    }
 }
 
 .scrolled {
